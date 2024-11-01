@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mailer;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -181,7 +182,7 @@ namespace WFMailer
             InboxListView.Items.Clear();
             UpdateInboxPanel();
 
-            var result = await _mailController.GetInboxMessages(35);
+            var result = await _mailController.GetInboxMessages(ApplicationData.GetConfig().MaxMessages);
             _inboxEmails = result.Item2;
 
             foreach (var email in _inboxEmails)
@@ -202,7 +203,7 @@ namespace WFMailer
             SentListView.Items.Clear();
             UpdateSentPanel();
 
-            var result = await _mailController.GetSentMessages(35);
+            var result = await _mailController.GetSentMessages(ApplicationData.GetConfig().MaxMessages);
             _sentEmails = result.Item2;
 
             foreach (var email in _sentEmails)
